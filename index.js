@@ -4,7 +4,7 @@
 // https://serverless.com/framework/docs/providers/aws/guide/plugins/
 // https://github.com/softprops/lambda-rust/
 
-const { spawnSync } = require("child_process");
+const { execSync } = require("child_process");
 const { homedir, platform } = require("os");
 const path = require("path");
 const AdmZip = require("adm-zip");
@@ -154,7 +154,7 @@ class RustPlugin {
     console.info('SERVERLESS_RUST', { args, NO_OUTPUT_CAPTURE, env });
     this.serverless.cli.log(`Running local cargo build on ${platform()}`);
 
-    const buildResult = spawnSync("cargo", args, {
+    const buildResult = execSync("cargo", args, {
       ...NO_OUTPUT_CAPTURE,
       ...{
         env: env,
@@ -257,7 +257,7 @@ class RustPlugin {
 
     this.serverless.cli.log("Running containerized build");
 
-    return spawnSync(dockerCLI, args, NO_OUTPUT_CAPTURE);
+    return execSync(dockerCLI, args, NO_OUTPUT_CAPTURE);
   }
 
   functions() {
