@@ -151,6 +151,7 @@ class RustPlugin {
     );
 
     const env = this.localBuildEnv(funcArgs, process.env, platform());
+    console.info('SERVERLESS_RUST', { args, NO_OUTPUT_CAPTURE, env });
     this.serverless.cli.log(`Running local cargo build on ${platform()}`);
 
     const buildResult = spawnSync("cargo", args, {
